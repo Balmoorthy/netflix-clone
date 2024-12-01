@@ -6,6 +6,7 @@ import SearchMovies from "./SearchMovies";
 const StyledHeader = styled.header`
   background-color: var(--color-grey-900);
   display: flex;
+  align-items: center;
   width: 100%;
   padding: 2rem;
   gap: 2rem;
@@ -16,7 +17,7 @@ function Header() {
     <StyledHeader>
       <Logo />
       <SearchMovies />
-      <Button variations="primary" size="small">
+      <Button variation="secondary" size="small">
         Sign out
       </Button>
     </StyledHeader>
