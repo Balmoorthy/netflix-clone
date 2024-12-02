@@ -11,7 +11,23 @@ export async function getPopularMovies() {
       throw new Error(`Error: ${response.statusText}`);
     }
     const data = await response.json();
-    console.log("Popular Movies:", data.results); // Movie list
+    return data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+}
+
+export async function getTopRatedMovies() {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
+    );
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log("TopRatedMovies:", data.results);
+    return data;
   } catch (error) {
     console.error("Error fetching movies:", error);
   }

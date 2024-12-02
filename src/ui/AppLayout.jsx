@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Header from "./Header";
+import Loader from "./Loader";
 import SideBar from "./SideBar";
 
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 6rem 2fr;
+  grid-template-columns: 4rem 2fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
 `;
@@ -19,7 +20,9 @@ function AppLayout() {
     <StyledAppLayout>
       <SideBar />
       <Header />
-      <Main>Movies</Main>
+      <Main>
+        Movies <Loader />
+      </Main>
     </StyledAppLayout>
   );
 }
