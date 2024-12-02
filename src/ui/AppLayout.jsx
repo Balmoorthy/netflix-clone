@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { API_KEY, BASE_URL } from "../utils/constants";
 import Header from "./Header";
 import Loader from "./Loader";
+import MovieRow from "./MovieRow";
 import SideBar from "./SideBar";
 
 const StyledAppLayout = styled.div`
@@ -21,7 +23,11 @@ function AppLayout() {
       <SideBar />
       <Header />
       <Main>
-        Movies <Loader />
+        <Loader />
+        <MovieRow
+          title="Trending Now"
+          fetchUrl={`${BASE_URL}/trending/all/day?api_key=${API_KEY}`}
+        />
       </Main>
     </StyledAppLayout>
   );

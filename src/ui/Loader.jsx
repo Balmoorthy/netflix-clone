@@ -1,5 +1,4 @@
 import { LineWave } from "react-loader-spinner";
-import MovieCard from "./MovieCard";
 
 function Loader() {
   return (
@@ -16,8 +15,6 @@ function Loader() {
         middleLineColor=""
         lastLineColor=""
       />
-
-      <MovieCard image={"/movieCard.jpe"} imageName="bala" />
     </div>
   );
 }
