@@ -6,21 +6,24 @@ import Heading from "./Heading";
 
 const StyledMovieRow = styled.div`
   width: 100%;
-  height: 18rem;
+  height: auto; // Allow it to grow with its content
+
   /* background-color: var(--color-grey-400); */
-  overflow-y: auto;
+  overflow-x: auto;
   display: flex;
   gap: 1rem;
+
+  align-items: center;
 `;
 
 const StyledMoviePoster = styled.div`
-  height: 100%;
-  width: 20rem;
+  height: 21rem;
+  width: 15rem;
   transition: all 0.5s ease-in-out;
   border-radius: 5px;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
 `;
 
@@ -49,18 +52,19 @@ function MovieRow({ title, fetchUrl }) {
   }, [fetchUrl]);
 
   return (
-    <StyledMovieRow>
+    <>
       <Heading as="h2">{title}</Heading>
-      <StyledMoviePoster>
+      <StyledMovieRow>
         {movies.map((movie) => (
-          <StyledImg
-            key={movie.id}
-            src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-            alt={movie.title + movie.name}
-          />
+          <StyledMoviePoster key={movie.id}>
+            <StyledImg
+              src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+              alt={movie.title || movie.name}
+            />
+          </StyledMoviePoster>
         ))}
-      </StyledMoviePoster>
-    </StyledMovieRow>
+      </StyledMovieRow>
+    </>
   );
 }
 
