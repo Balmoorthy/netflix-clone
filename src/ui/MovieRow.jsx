@@ -15,7 +15,7 @@ const StyledSlider = styled.div`
   gap: 1rem;
   overflow-x: auto;
   scroll-behavior: smooth; /* Smooth scrolling for the slider */
-  padding: 1rem;
+  padding: 1.5rem 1.5rem 1.5rem 7rem;
 
   &::-webkit-scrollbar {
     display: none; /* Hide scrollbar for a clean look */
@@ -52,6 +52,7 @@ const Button = styled.button`
   padding: 0.5rem 1rem;
   cursor: pointer;
   z-index: 1;
+  font-size: 2rem;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
@@ -73,6 +74,8 @@ const NextButton = styled(Button)`
 
 function MovieRow({ title, fetchUrl }) {
   const [movies, setMovies] = useState([]);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
   const sliderRef = useRef(null);
 
   useEffect(() => {
@@ -88,19 +91,37 @@ function MovieRow({ title, fetchUrl }) {
 
     fetchMovies();
   }, [fetchUrl]);
-  const [isAtStart, setIsAtStart] = useState(true);
-  const [isAtEnd, setIsAtEnd] = useState(false);
+
+  useEffect(() => {
+    const handleInitialButtonVisibility = () => {
+      if (sliderRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+        setIsAtStart(scrollLeft <= 0);
+        setIsAtEnd(scrollLeft + clientWidth >= scrollWidth);
+      }
+    };
+
+    // Call the function to set initial button states
+    handleInitialButtonVisibility();
+
+    const slider = sliderRef.current;
+
+    if (slider) {
+      // Add scroll event listener for dynamic updates
+      slider.addEventListener("scroll", handleInitialButtonVisibility);
+    }
+
+    return () => {
+      if (slider) {
+        slider.removeEventListener("scroll", handleInitialButtonVisibility);
+      }
+    };
+  }, [sliderRef]);
 
   const handleScroll = (direction) => {
     if (sliderRef.current) {
       const scrollAmount = direction === "next" ? 1200 : -1200;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-
-      setTimeout(() => {
-        const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-        setIsAtStart(scrollLeft <= 0);
-        setIsAtEnd(scrollLeft + clientWidth >= scrollWidth);
-      }, 300); // Delay for smooth scrolling
     }
   };
 
@@ -108,11 +129,11 @@ function MovieRow({ title, fetchUrl }) {
     <StyledMovieRow>
       <Heading as="h2">{title}</Heading>
       {!isAtStart && (
-        <PrevButton onClick={() => handleScroll("prev")}>◀</PrevButton>
+        <PrevButton onClick={() => handleScroll("prev")}>&lsaquo;</PrevButton>
       )}
 
       {!isAtEnd && (
-        <NextButton onClick={() => handleScroll("next")}>▶</NextButton>
+        <NextButton onClick={() => handleScroll("next")}>&rsaquo;</NextButton>
       )}
 
       <StyledSlider ref={sliderRef}>
