@@ -7,15 +7,25 @@ import Heading from "./Heading";
 const StyledMovieRow = styled.div`
   width: 100%;
   overflow: hidden; /* Hide overflowing content */
-  position: relative; /* For positioning buttons */
+  position: relative;
+  margin-bottom: 2.4rem;
+
+  & > h2 {
+    margin-left: 4rem;
+    color: var(--color-grey-400);
+    font-size: 3rem;
+  }
 `;
 
 const StyledSlider = styled.div`
+  position: relative;
   display: flex;
   gap: 1rem;
   overflow-x: auto;
+  margin-left: 2rem;
   scroll-behavior: smooth; /* Smooth scrolling for the slider */
-  padding: 1.5rem 1.5rem 1.5rem 7rem;
+  padding: 1.5rem 5rem 1.5rem 1.5rem;
+  min-width: 100%;
 
   &::-webkit-scrollbar {
     display: none; /* Hide scrollbar for a clean look */
@@ -31,7 +41,7 @@ const StyledMoviePoster = styled.div`
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.07);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
   }
 `;
@@ -45,31 +55,26 @@ const StyledImg = styled.img`
 const Button = styled.button`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-20%);
+  background-color: var(--color-grey-700);
   border: none;
   color: white;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  z-index: 1;
-  font-size: 2rem;
+  z-index: 15;
+  font-size: 2.5rem;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    background-color: var(--color-grey-800);
   }
 `;
 
 const PrevButton = styled(Button)`
-  left: 0;
+  left: 5px;
 `;
 
 const NextButton = styled(Button)`
-  right: 0;
+  right: 5px;
 `;
 
 function MovieRow({ title, fetchUrl }) {
@@ -102,7 +107,7 @@ function MovieRow({ title, fetchUrl }) {
     };
 
     // Call the function to set initial button states
-    handleInitialButtonVisibility();
+    // handleInitialButtonVisibility();
 
     const slider = sliderRef.current;
 
@@ -120,7 +125,7 @@ function MovieRow({ title, fetchUrl }) {
 
   const handleScroll = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = direction === "next" ? 1200 : -1200;
+      const scrollAmount = direction === "next" ? 1300 : -1300;
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };

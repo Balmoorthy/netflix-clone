@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { API_KEY, BASE_URL } from "../utils/constants";
 import Header from "./Header";
-import Loader from "./Loader";
 import MovieRow from "./MovieRow";
 import SideBar from "./SideBar";
 
@@ -15,6 +14,7 @@ const StyledAppLayout = styled.div`
 const Main = styled.main`
   background-color: var(--color-grey-950);
   overflow: auto;
+  padding-top: 2rem;
 `;
 
 function AppLayout() {
@@ -23,10 +23,22 @@ function AppLayout() {
       <SideBar />
       <Header />
       <Main>
-        <Loader />
+        {/* <Loader /> */}
         <MovieRow
           title="Trending Now"
           fetchUrl={`${BASE_URL}/trending/all/day?api_key=${API_KEY}`}
+        />
+        <MovieRow
+          title="Popular"
+          fetchUrl={`${BASE_URL}/movie/popular?api_key=${API_KEY}`}
+        />
+        <MovieRow
+          title="Top Rated"
+          fetchUrl={`${BASE_URL}/movie/top_rated?api_key=${API_KEY}`}
+        />
+        <MovieRow
+          title="Upcoming Movies"
+          fetchUrl={`${BASE_URL}/movie/upcoming?api_key=${API_KEY}`}
         />
       </Main>
     </StyledAppLayout>
