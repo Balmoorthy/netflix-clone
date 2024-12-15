@@ -1,7 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
+import useMovies from "../hooks/useMovies";
 import { API_KEY, BASE_URL } from "../utils/constants";
 import Header from "./Header";
 import MovieRow from "./MovieRow";
+import SearchBar from "./SearchBar";
 import SideBar from "./SideBar";
 
 const StyledAppLayout = styled.div`
@@ -18,10 +21,15 @@ const Main = styled.main`
 `;
 
 function AppLayout() {
+  const [query, setQuery] = useState("");
+  const { movies, error, isLoading } = useMovies(query);
   return (
     <StyledAppLayout>
       <SideBar />
-      <Header />
+      <Header>
+        {" "}
+        <SearchBar query={query} setQuery={setQuery} />
+      </Header>
       <Main>
         {/* <Loader /> */}
         <MovieRow
