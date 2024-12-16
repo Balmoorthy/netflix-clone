@@ -14,16 +14,22 @@ function useMovies(query) {
           setIsLoading(true);
           setError("");
           const response = await fetch(
-            `${BASE_URL}/movie/${query}?api_key=${API_KEY}&language=en-US&page=1`
+            `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+              query
+            )}&language=en-US&page=1`,
+            { signal: controller.signal }
           );
           if (!response.ok)
             throw new Error(
-              `Something went to wrong with fetching movies: ${response.statusText}`
+              `Something went wrong with fetching movies: ${response.statusText}`
             );
 
           const data = await response.json();
-          if (data.Response === "False") throw new Error("Movie not found");
-          setMovies(data.Search);
+          if (!data.results || data.results.length === 0) {
+            throw new Error("No movies found.");
+          }
+          console.log(data.results);
+          setMovies(data.results);
           setError("");
         } catch (error) {
           if (error.name !== "AbortError") {

@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import { useKey } from "../hooks/useKey";
+import useMovies from "../hooks/useMovies";
 
 const StyledInput = styled.input`
   width: 30rem;
@@ -36,7 +36,9 @@ const StyledBar = styled.div`
   gap: 0.5rem;
 `;
 
-function SearchBar({ query, setQuery }) {
+function SearchBar() {
+  const [query, setQuery] = useState("");
+  const { movies, error, isLoading } = useMovies(query);
   const inputEl = useRef(null);
 
   useKey("Enter", function () {
@@ -57,13 +59,20 @@ function SearchBar({ query, setQuery }) {
         ref={inputEl}
       />
       <FiSearch />
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
     </StyledBar>
   );
 }
 
-SearchBar.propTypes = {
-  query: PropTypes.string,
-  setQuery: PropTypes.string,
-};
+// SearchBar.propTypes = {
+//   query: PropTypes.string,
+//   setQuery: PropTypes.string,
+// };
 
 export default SearchBar;
