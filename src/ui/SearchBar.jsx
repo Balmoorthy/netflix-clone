@@ -3,6 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import { useKey } from "../hooks/useKey";
 import useMovies from "../hooks/useMovies";
+import { IMAGE_BASE_URL } from "../utils/constants";
 
 const StyledInput = styled.input`
   width: 30rem;
@@ -26,6 +27,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledBar = styled.div`
+  position: relative;
   background-color: var(--color-grey-300);
   display: flex;
   align-items: center;
@@ -34,12 +36,43 @@ const StyledBar = styled.div`
   border-radius: var(--border-radius-sm);
   color: var(--color-grey-950);
   gap: 0.5rem;
+
+  & ul {
+    /* display: none; */
+    position: absolute;
+    /* padding: 2rem; */
+    width: 100%;
+    height: 80vh;
+    top: 4.5rem;
+    background-color: var(--color-grey-300);
+    color: white;
+    z-index: 10;
+    overflow-x: auto;
+
+    & li {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      &:hover {
+        background-color: var(--color-grey-500);
+      }
+    }
+
+    & img {
+      width: 6rem;
+      height: 100%;
+    }
+  }
 `;
 
 function SearchBar() {
   const [query, setQuery] = useState("");
   const { movies, error, isLoading } = useMovies(query);
   const inputEl = useRef(null);
+  console.log(...movies);
 
   useKey("Enter", function () {
     if (document.activeElement === inputEl.current) return;
@@ -50,22 +83,33 @@ function SearchBar() {
 
   return (
     <StyledBar>
-      <StyledInput
-        typeof="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
-        type="text"
-        placeholder="Type / to search movies"
-        ref={inputEl}
-      />
-      <FiSearch />
+      <>
+        <StyledInput
+          typeof="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
+          type="text"
+          placeholder="Type / to search movies"
+          ref={inputEl}
+        />
+        <FiSearch />
+      </>
       {isLoading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
-        ))}
-      </ul>
+
+      {query && (
+        <ul>
+          {movies.map((movie) => (
+            <li key={movie.id}>
+              <img
+                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                alt={movie.title || movie.name || "Movie poster"}
+              />
+              {movie.title}
+            </li>
+          ))}
+        </ul>
+      )}
     </StyledBar>
   );
 }
