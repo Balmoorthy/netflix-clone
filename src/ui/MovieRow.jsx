@@ -37,6 +37,7 @@ const StyledMoviePoster = styled.div`
   width: 15rem;
   height: 21rem;
   overflow: hidden;
+  cursor: pointer;
   border-radius: 10px;
   transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 
@@ -130,6 +131,8 @@ function MovieRow({ title, fetchUrl }) {
     }
   };
 
+  const handleMovie = () => {};
+
   return (
     <StyledMovieRow>
       <Heading as="h2">{title}</Heading>
@@ -143,7 +146,7 @@ function MovieRow({ title, fetchUrl }) {
 
       <StyledSlider ref={sliderRef}>
         {movies.map((movie) => (
-          <StyledMoviePoster key={movie.id}>
+          <StyledMoviePoster onClick={() => handleMovie()} key={movie.id}>
             <StyledImg
               src={`${IMAGE_BASE_URL}${movie.poster_path}`}
               alt={movie.title || movie.name || "Movie poster"}

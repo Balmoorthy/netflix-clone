@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Movie from "./pages/Movie";
 import PageNotFound from "./pages/PageNotFound";
 import { getPopularMovies } from "./services/api";
 import GlobalStyles from "./styles/GlobalStyles";
@@ -12,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />} />
-          <Route path="/movie/:movieId" element={<AppLayout />} />
+          <Route path="/movie/:movieId" element={<Movie />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
