@@ -42,17 +42,24 @@ const StyledBar = styled.div`
     position: absolute;
     /* padding: 2rem; */
     width: 100%;
-    height: 80vh;
+    height: 85vh;
+    display: flex;
     top: 4.5rem;
     background-color: var(--color-grey-300);
-    color: white;
+    color: var(--color-grey-950);
     z-index: 10;
     overflow-x: auto;
+    /* flex-basis: 200px; */
+    flex-wrap: wrap;
 
     & li {
+      width: 20rem;
+      height: 15rem;
       cursor: pointer;
       padding: 0.5rem 1rem;
       display: flex;
+      flex-grow: 1;
+
       gap: 1rem;
       align-items: center;
 
@@ -61,9 +68,13 @@ const StyledBar = styled.div`
       }
     }
 
+    & span {
+      color: var(--color-grey-500);
+    }
+
     & img {
-      width: 6rem;
-      height: 100%;
+      width: 8rem;
+      /* height: 100%; */
     }
   }
 `;
@@ -106,6 +117,8 @@ function SearchBar() {
                 alt={movie.title || movie.name || "Movie poster"}
               />
               {movie.title}
+              <span>{movie.release_date.split("-")[0]}</span>
+              <span></span>
             </li>
           ))}
         </ul>

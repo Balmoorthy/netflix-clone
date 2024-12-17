@@ -12,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />} />
+          <Route path="/movie/:movieId" element={<AppLayout />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { API_KEY, BASE_URL } from "../utils/constants";
 
 function MovieDetails() {
   const [movie, setMovie] = useState({});
+  const { movieId } = useParams();
 
   const { original_title, poster_path, overview, vote_average } = movie;
 
