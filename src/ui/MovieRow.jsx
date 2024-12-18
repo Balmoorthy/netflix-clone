@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGE_BASE_URL } from "../utils/constants";
 import Heading from "./Heading";
@@ -83,6 +84,7 @@ function MovieRow({ title, fetchUrl }) {
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchMovies() {
@@ -131,7 +133,9 @@ function MovieRow({ title, fetchUrl }) {
     }
   };
 
-  const handleMovie = () => {};
+  const handleMovie = (movieId) => {
+    navigate(`/movie/${movieId}`); // Navigate to the movie's detail page
+  };
 
   return (
     <StyledMovieRow>
@@ -146,7 +150,10 @@ function MovieRow({ title, fetchUrl }) {
 
       <StyledSlider ref={sliderRef}>
         {movies.map((movie) => (
-          <StyledMoviePoster onClick={() => handleMovie()} key={movie.id}>
+          <StyledMoviePoster
+            onClick={() => handleMovie(movie.id)}
+            key={movie.id}
+          >
             <StyledImg
               src={`${IMAGE_BASE_URL}${movie.poster_path}`}
               alt={movie.title || movie.name || "Movie poster"}

@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { API_KEY, BASE_URL } from "../utils/constants";
 import Header from "./Header";
@@ -25,6 +26,7 @@ function AppLayout() {
       <SideBar />
       <Header />
       <Main>
+        <Outlet />
         {/* <Loader /> */}
         <MovieRow
           title="Trending Now"

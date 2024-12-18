@@ -83,7 +83,6 @@ function SearchBar() {
   const [query, setQuery] = useState("");
   const { movies, error, isLoading } = useMovies(query);
   const inputEl = useRef(null);
-  console.log(...movies);
 
   useKey("Enter", function () {
     if (document.activeElement === inputEl.current) return;
@@ -110,7 +109,7 @@ function SearchBar() {
 
       {query && (
         <ul>
-          {movies.map((movie) => (
+          {movies?.map((movie) => (
             <li key={movie.id}>
               <img
                 src={`${IMAGE_BASE_URL}${movie.poster_path}`}

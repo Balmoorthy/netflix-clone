@@ -12,7 +12,7 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AppLayout />} />
+          <Route path="/" element={<AppLayout />}></Route>
           <Route path="/movie/:movieId" element={<Movie />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
