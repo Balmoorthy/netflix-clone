@@ -32,3 +32,18 @@ export async function getTopRatedMovies() {
     console.error("Error fetching movies:", error);
   }
 }
+
+export async function getMovie(movieId) {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/movie/popular?api_key=${API_KEY}`
+    );
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+}

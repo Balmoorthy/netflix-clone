@@ -3,17 +3,16 @@ import styled from "styled-components";
 import { API_KEY, BASE_URL } from "../utils/constants";
 import Header from "./Header";
 import MovieRow from "./MovieRow";
-import SideBar from "./SideBar";
 
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 4rem 2fr;
-  grid-template-rows: auto 1fr;
+  /* grid-template-columns: 4rem 2fr;
+  grid-template-rows: auto 1fr; */
   height: 100vh;
 `;
 
 const Main = styled.main`
-  background-color: var(--color-grey-950);
+  background-color: var(--color-grey-900);
   overflow: auto;
   padding-top: 2rem;
 `;
@@ -23,7 +22,7 @@ function AppLayout() {
   // const { movies, error, isLoading } = useMovies(query);
   return (
     <StyledAppLayout>
-      <SideBar />
+      {/* <SideBar /> */}
       <Header />
       <Main>
         <Outlet />
