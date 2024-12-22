@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "./Header";
 
 const StyledAppLayout = styled.div`
-  display: grid;
   /* grid-template-columns: 4rem 2fr;
   grid-template-rows: auto 1fr; */
   height: 100vh;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { getTopRatedMovies } from "../services/api";
+import { getTopRatedMovies } from "../services/apiMovies";
 import Button from "./Button";
+import DarkModeToggle from "./DarkModeToggle";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 
@@ -20,7 +21,7 @@ function Header() {
     <StyledHeader>
       <Logo />
       <SearchBar />
-
+      <DarkModeToggle />
       <Button variation="secondary" size="small">
         Sign out
       </Button>
