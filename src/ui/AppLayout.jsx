@@ -1,10 +1,9 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import SignUp from "../feature/authentication/SignUp";
 import Header from "./Header";
 
 const StyledAppLayout = styled.div`
-  /* grid-template-columns: 4rem 2fr;
-  grid-template-rows: auto 1fr; */
   height: 100vh;
 `;
 
@@ -20,6 +19,7 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
+      <SignUp/>
       <Main>
         <Outlet />
       </Main>

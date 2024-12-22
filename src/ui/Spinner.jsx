@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { useLoading } from "../context/useLoading";
 
 const rotate = keyframes`
   to {
@@ -6,7 +7,7 @@ const rotate = keyframes`
   }
 `;
 
-const Spinner = styled.div`
+const StyledSpinner = styled.div`
   margin: 4.8rem auto;
 
   width: 6.4rem;
@@ -18,5 +19,12 @@ const Spinner = styled.div`
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 10px), #000 0);
   animation: ${rotate} 1.5s infinite linear;
 `;
+
+function Spinner() {
+  const { isLoading } = useLoading();
+
+  if (!isLoading) return null;
+  return <StyledSpinner />;
+}
 
 export default Spinner;

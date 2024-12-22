@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { getTopRatedMovies } from "../services/apiMovies";
 import Button from "./Button";
 import DarkModeToggle from "./DarkModeToggle";
 import Logo from "./Logo";
@@ -16,7 +15,12 @@ const StyledHeader = styled.header`
 `;
 
 function Header() {
-  getTopRatedMovies();
+  console.log(import.meta.env.API_KEY_FIRE_BASE);
+  console.log(import.meta.env.BALA);
+  console.log(import.meta.env);
+  const apiKey = "AIzaSyA4CMHSuINAb";
+  console.log(apiKey);
+
   return (
     <StyledHeader>
       <Logo />
