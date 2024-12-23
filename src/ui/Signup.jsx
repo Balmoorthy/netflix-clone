@@ -1,18 +1,29 @@
 import { useState } from "react";
-import { useSignUp } from "./useSignup";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
-const SignUp = () => {
-  const { signUp, error } = useSignUp();
+export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signUp(email, password);
+    try {
+      setError("");
+      await signup(email, password);
+      navigate("/dashboard");
+    } catch {
+      setError("Failed to sign up");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
+      {error && <p>{error}</p>}
       <input
         type="email"
         placeholder="Email"
@@ -26,9 +37,6 @@ const SignUp = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Sign Up</button>
-      {error && <p>{error}</p>}
     </form>
   );
-};
-
-export default SignUp;
+}

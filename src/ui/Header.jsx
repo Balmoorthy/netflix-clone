@@ -15,12 +15,6 @@ const StyledHeader = styled.header`
 `;
 
 function Header() {
-  console.log(import.meta.env.API_KEY_FIRE_BASE);
-  console.log(import.meta.env.BALA);
-  console.log(import.meta.env);
-  const apiKey = "AIzaSyA4CMHSuINAb";
-  console.log(apiKey);
-
   return (
     <StyledHeader>
       <Logo />
