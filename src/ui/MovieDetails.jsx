@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_KEY, BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 
 function MovieDetails() {
   const [movie, setMovie] = useState({});
@@ -12,7 +12,9 @@ function MovieDetails() {
     async function getMovieDetails(query) {
       try {
         const response = await fetch(
-          `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1`
+          `${BASE_URL}/search/movie?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }&language=en-US&query=${query}&page=1`
         );
         const data = await response.json();
         setMovie(data.results);

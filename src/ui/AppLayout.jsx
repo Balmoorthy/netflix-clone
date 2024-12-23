@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
+import LoginForm from "./LoginForm";
 
 const StyledAppLayout = styled.div`
   height: 100vh;
@@ -19,7 +20,7 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
-
+      <LoginForm />
       <Main>
         <Outlet />
       </Main>

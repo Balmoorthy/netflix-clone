@@ -13,9 +13,9 @@ import { getPopularMovies } from "./services/apiMovies";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./ui/Dashboard";
-import Login from "./ui/Login";
+import LoginForm from "./ui/LoginForm";
 import PrivateRoute from "./ui/PrivateRoute";
-import Signup from "./ui/Signup";
+import SignupForm from "./ui/SignupForm";
 
 function App() {
   getPopularMovies();
@@ -24,8 +24,8 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route element={<AppLayout />}>
+            <Route path="/" element={<Home />} />
             <Route path="account/:userName" element={<User />} />
             <Route path="movies/:movieId" element={<Movie />} />
             <Route path="my-list" element={<MyList />} />
@@ -33,8 +33,8 @@ function App() {
             <Route path="tv-shows" element={<TvShows />} />
             <Route path="account/profile" element={<Profile />} />
           </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="signup" element={<SignupForm />} />
           <Route path="*" element={<PageNotFound />} />
           <Route
             path="/dashboard"

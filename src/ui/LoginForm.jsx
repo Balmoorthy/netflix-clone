@@ -1,19 +1,22 @@
-import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import useAuthForm from "../hooks/useAuthForm";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginForm() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const { values, handleChange, error, setError } = useAuthForm({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError("");
-      await login(email, password);
+      await login(values.email, values.password);
+      toast.success("Logged in scuessfully");
       navigate("/dashboard");
     } catch {
       setError("Failed to log in");
@@ -26,15 +29,17 @@ export default function Login() {
       {error && <p>{error}</p>}
       <input
         type="email"
+        name="email"
         placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={values.email}
+        onChange={handleChange}
       />
       <input
         type="password"
+        name="password"
         placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={values.password}
+        onChange={handleChange}
       />
       <button type="submit">Log In</button>
     </form>

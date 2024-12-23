@@ -1,19 +1,20 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import useAuthForm from "../hooks/useAuthForm";
 
-export default function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function SignupForm() {
   const { signup } = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const { values, handleChange, error, setError } = useAuthForm({
+    email: "",
+    password: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError("");
-      await signup(email, password);
+      await signup(values.email, values.password);
       navigate("/dashboard");
     } catch {
       setError("Failed to sign up");
@@ -26,15 +27,17 @@ export default function Signup() {
       {error && <p>{error}</p>}
       <input
         type="email"
+        name="email"
         placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={values.email}
+        onChange={handleChange}
       />
       <input
         type="password"
+        name="password"
         placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={values.password}
+        onChange={handleChange}
       />
       <button type="submit">Sign Up</button>
     </form>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_KEY, BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 
 function useMovies(query) {
   const [movies, setMovies] = useState([]);
@@ -14,9 +14,9 @@ function useMovies(query) {
           setIsLoading(true);
           setError("");
           const response = await fetch(
-            `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-              query
-            )}&language=en-US&page=1`,
+            `${BASE_URL}/search/movie?api_key=${
+              import.meta.env.VITE_TMDB_API_KEY
+            }&query=${encodeURIComponent(query)}&language=en-US&page=1`,
             { signal: controller.signal }
           );
           if (!response.ok)
