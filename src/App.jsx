@@ -30,7 +30,7 @@ function App() {
               </PrivateRoute>
             }
           >
-            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route element={<Navigate replace to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="movies/:movieId" element={<Movie />} />
             <Route path="my-list" element={<MyList />} />
@@ -38,7 +38,7 @@ function App() {
             <Route path="tv-shows" element={<TvShows />} />
             <Route path="account/profile" element={<Profile />} />
           </Route>
-          <Route path="/" element={<Home />} />
+          <Route index path="/" element={<Home />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="signup" element={<SignupForm />} />
           <Route path="*" element={<PageNotFound />} />

@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../context/useAuth";
 import Button from "./Button";
 import DarkModeToggle from "./DarkModeToggle";
 import Logo from "./Logo";
@@ -15,13 +17,19 @@ const StyledHeader = styled.header`
 `;
 
 function Header() {
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  function handleSubmit() {
+    navigate("/signup");
+  }
   return (
     <StyledHeader>
       <Logo />
-      <SearchBar />
+      {currentUser && <SearchBar />}
       <DarkModeToggle />
-      <Button variation="secondary" size="small">
-        Sign out
+      <Button onClick={handleSubmit} variation="secondary" size="small">
+        Sign In
       </Button>
     </StyledHeader>
   );
