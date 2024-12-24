@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 
 import Movie from "./pages/Movie";
@@ -8,7 +8,6 @@ import NewPopular from "./pages/NewPopular";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import TvShows from "./pages/TvShows";
-import User from "./pages/User";
 import { getPopularMovies } from "./services/apiMovies";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
@@ -24,26 +23,25 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="account/:userName" element={<User />} />
+          <Route
+            element={
+              <PrivateRoute>
+                <AppLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="movies/:movieId" element={<Movie />} />
             <Route path="my-list" element={<MyList />} />
             <Route path="new-popular" element={<NewPopular />} />
             <Route path="tv-shows" element={<TvShows />} />
             <Route path="account/profile" element={<Profile />} />
           </Route>
+          <Route path="/" element={<Home />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="signup" element={<SignupForm />} />
           <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
         </Routes>
       </BrowserRouter>
       <Toaster
