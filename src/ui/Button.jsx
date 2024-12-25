@@ -10,8 +10,9 @@ const sizes = {
   `,
   medium: css`
     font-size: 1.4rem;
-    padding: 1.2rem 1.6rem;
+    padding: 5px 18px;
     font-weight: 500;
+    border-radius: 100px;
   `,
   large: css`
     font-size: 1.6rem;
@@ -30,16 +31,16 @@ const variations = {
     }
   `,
   secondary: css`
-    color: var(--color-grey-300);
-    background: var(--color-grey-700);
+    color: var(--color-grey-900);
+    background: var(--color-grey-50);
     border: 1px solid var(--color-grey-600);
 
     &:hover {
-      background-color: var(--color-grey-800);
+      background-color: var(--color-grey-300);
     }
   `,
   danger: css`
-    color: var(--color-red-100);
+    color: var(--color-grey-50);
     background-color: var(--color-red-700);
 
     &:hover {

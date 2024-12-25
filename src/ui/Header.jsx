@@ -7,7 +7,7 @@ import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 
 const StyledHeader = styled.header`
-  background-color: var(--color-grey-900);
+  /* background-color: var(--color-grey-900); */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,7 +28,7 @@ function Header() {
       <Logo />
       {currentUser && <SearchBar />}
       <DarkModeToggle />
-      <Button onClick={handleSubmit} variation="secondary" size="small">
+      <Button onClick={handleSubmit} variation="secondary" size="medium">
         Sign In
       </Button>
     </StyledHeader>
