@@ -59,6 +59,10 @@ const GlobalStyles = createGlobalStyle`
   --image-grayscale: 0;
   --image-opacity: 100%;
 
+  background:radial-gradient(at top left, white 25%,transparent 70%)
+
+  /* rgba(249, 146, 151, 0.2) */
+  /* drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6)) */
 }
 
   &.dark-mode{

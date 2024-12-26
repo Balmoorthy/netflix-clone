@@ -8,7 +8,7 @@ const StyledAppLayout = styled.div`
 `;
 
 const Main = styled.main`
-  width: 120rem;
+  min-width: 300px;
   background-color: var(--color-grey-900);
   overflow: auto;
   padding-top: 2rem;

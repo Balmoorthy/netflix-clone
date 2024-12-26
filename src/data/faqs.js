@@ -1,4 +1,4 @@
-export const faq = [
+export const faqs = [
   {
     quiz: 1,
     question: "What is Netflix?",

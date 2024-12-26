@@ -1,26 +1,34 @@
-import { IoMdClose } from "react-icons/io";
+import { useRef, useState } from "react";
+import { IoMdAdd, IoMdClose } from "react-icons/io";
 import styled from "styled-components";
-import Heading from "./Heading.jsx";
+import { faqs } from "../data/faqs";
+import Heading from "../ui/Heading";
 
-const StyledFaqContainer = styled.div`
-  width: 100%;
-
-  &:first-child {
-    margin-bottom: 1rem;
-  }
+const FaqContainer = styled.div`
+  min-width: 300px;
+  margin: 2rem auto;
+  font-weight: 600;
 `;
-const StyledUl = styled.li`
-  width: 100%;
+
+const QuestionWrapper = styled.div`
   background-color: var(--color-grey-800);
-  border-radius: 16px;
   border: 2px solid var(--color-grey-700);
-  padding: 2rem 3rem;
-  font-size: 2rem;
-  list-style: none;
-  cursor: pointer;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+`;
+
+const Question = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})`
+  padding: 1.5rem 3rem;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--color-grey-800);
 
   &:hover {
     background-color: var(--color-grey-700);
@@ -29,26 +37,61 @@ const StyledUl = styled.li`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    transform: rotate(44deg);
+    transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(90deg)")};
     transition: all 0.5s ease-in-out;
-
-    &:active {
-      transform: rotate(88deg);
-    }
   }
 `;
 
-function Faq() {
-  //   console.log(quiz, question, answer);
-  return (
-    <StyledFaqContainer>
-      <Heading as="h1">Frequently Asked Questions</Heading>
+const AnswerWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})`
+  height: ${({ isOpen, height }) => (isOpen ? `${height}px` : "0")};
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+`;
 
-      <StyledUl>
-        fdfdffdffd <IoMdClose />
-      </StyledUl>
-    </StyledFaqContainer>
+const Answer = styled.div`
+  padding: 1.5rem 3rem;
+  font-size: 1.8;
+  color: var(--color-grey-300);
+  background-color: var(--color-grey-900);
+  letter-spacing: 0.5px;
+`;
+
+const Faq = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+  const answerRefs = useRef([]);
+
+  const toggleFaq = (index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  return (
+    <>
+      <Heading as="h1">Frequently Asked Questions</Heading>
+      <FaqContainer>
+        {faqs.map((faq, index) => (
+          <QuestionWrapper key={index}>
+            <Question
+              isOpen={openIndex === index}
+              onClick={() => toggleFaq(index)}
+            >
+              {faq.question}
+              {openIndex === index ? <IoMdClose /> : <IoMdAdd />}
+            </Question>
+            <AnswerWrapper
+              isOpen={openIndex === index}
+              height={answerRefs.current[index]?.scrollHeight || 0}
+            >
+              <Answer ref={(el) => (answerRefs.current[index] = el)}>
+                {faq.answer}
+              </Answer>
+            </AnswerWrapper>
+          </QuestionWrapper>
+        ))}
+      </FaqContainer>
+    </>
   );
-}
+};
 
 export default Faq;
