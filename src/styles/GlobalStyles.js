@@ -62,6 +62,9 @@ const GlobalStyles = createGlobalStyle`
   background:radial-gradient(at top left, white 25%,transparent 70%)
 
   /* rgba(249, 146, 151, 0.2) */
+
+  /* radial-gradient(92.05% 69.94% at 76.34% 50.09%, rgba(0, 0, 0, 0.00) 21.7%, rgba(0, 0, 0, 0.80) 53.83%, rgba(0, 0, 0, 0.95) 100%) */
+ 
   /* drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6)) */
 }
 
@@ -139,14 +142,11 @@ body {
   font-family: "Roboto", sans-serif;
   color: var(--color-grey-50);
   background-color: var(--color-grey-950);
-
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
-overflow-y: hidden;
-  
-}
+ }
 
 input,
 button,

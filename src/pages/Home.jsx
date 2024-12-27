@@ -4,10 +4,9 @@ import Header from "../ui/Header";
 import HeroSection from "../ui/HeroSection";
 
 const Main = styled.main`
-  min-width: 300px;
+  min-width: 350px;
   max-width: 150rem;
   background-color: var(--color-grey-950);
-  overflow: auto;
   padding: 2rem;
   margin: auto;
 `;
