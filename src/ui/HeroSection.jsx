@@ -12,68 +12,134 @@ const images = [
   "home-slider/home-slide-img-5.jpg",
 ];
 
-const CarouselWrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "currentIndex",
-})`
-  position: relative;
-  /* background: rgba(249, 146, 151, 0.2); */
-  width: 100%;
+const OuterContainer = styled.div`
+  width: calc(100vw - 6rem);
   max-width: 120rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1rem;
-  margin-bottom: 3.6rem;
-  background: ${({ currentIndex }) =>
-    currentIndex === 0
-      ? "lightblue"
-      : currentIndex === 1
-      ? "lightgreen"
-      : "lightcoral"};
+  height: 772px;
 `;
 
-const StyledImgContainer = styled.div`
+const InnerContainer = styled.div`
+  filter: drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6));
+  position: relative;
+`;
+
+const ImgOuterContainer = styled.div`
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 100%;
   mask-image: radial-gradient(
     103% 10.5% at 50% 102%,
     transparent 50%,
     white 52%
   );
   border-radius: 20px 20px 16px 16px;
-  filter: drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6));
 
   &::before {
     position: absolute;
     content: "";
     inset: 0;
     padding: 2px;
-    z-index: 1;
+    z-index: 100;
     background: radial-gradient(at top left, white 25%, transparent 70%);
     mask-composite: exclude;
     pointer-events: none;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     z-index: 100;
+    border-radius: 20px 20px 16px 16px;
   }
 `;
 
-const ImageContainer = styled.div.withConfig({
+const ImgInnerContainer = styled.div`
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+`;
+
+const ImgContainer = styled.div`
+  mask-image: linear-gradient(
+    180deg,
+    #fff 71.48%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+
+  display: flex;
+  justify-content: center;
+  height: 100%;
+
+  & span {
+    background-image: radial-gradient(
+      92.05% 69.94% at 76.34% 50.09%,
+      rgba(0, 0, 0, 0) 21.7%,
+      rgba(0, 0, 0, 0.8) 53.83%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+`;
+
+const CarouselWrapper = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "currentIndex",
 })`
-  display: flex;
-  transform: ${({ currentIndex }) => `translateX(-${currentIndex * 100}%)`};
-  transition: transform 0.5s ease-in-out;
-  inset: 1;
-  z-index: 2;
-  height: 100%;
-  /* background: radial-gradient(at top left, white 25%, transparent 70%); */
-
-  img {
-    width: 100%;
-    z-index: 300;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    filter: drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6));
-  }
+  /* background: rgba(249, 146, 151, 0.2); */
+  /* width: 100%;
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto; */
+  margin-bottom: 3.6rem;
+  /* background: ${({ currentIndex }) =>
+    currentIndex === 0
+      ? "lightblue"
+      : currentIndex === 1
+      ? "lightgreen"
+      : "lightcoral"}; */
 `;
+
+// const StyledImgContainer = styled.div`
+//   /* mask-image: radial-gradient(
+//     103% 10.5% at 50% 102%,
+//     transparent 50%,
+//     white 52%
+//   ); */
+//   background-color: rgba(255, 255, 255, 0.2);
+//   /* position: absolute; */
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 20px 20px 16px 16px;
+//   /* filter: drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6)); */
+
+//   &::before {
+//     position: absolute;
+//     content: "";
+//     inset: 0;
+//     padding: 2px;
+//     z-index: 100;
+//     background: radial-gradient(at top left, white 25%, transparent 70%);
+//     mask-composite: exclude;
+//     pointer-events: none;
+//     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+//     z-index: 100;
+//     border-radius: 20px 20px 16px 16px;
+//   }
+// `;
+
+// const ImageContainer = styled.div.withConfig({
+//   shouldForwardProp: (prop) => prop !== "currentIndex",
+// })`
+//   display: flex;
+//   transform: ${({ currentIndex }) => `translateX(-${currentIndex * 100}%)`};
+//   transition: transform 0.5s ease-in-out;
+//   inset: 1;
+//   z-index: 2;
+//   height: 100%;
+//   /* background: radial-gradient(at top left, white 25%, transparent 70%); */
+// `;
 
 const Controls = styled.div`
   /* position: absolute; */
@@ -246,45 +312,70 @@ const Carousel = () => {
   };
 
   return (
-    <CarouselWrapper currentIndex={currentIndex}>
-      <StyledImgContainer currentIndex={currentIndex}>
-        <ImageContainer currentIndex={currentIndex}>
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Slide ${index + 1}`}
-              className={index === currentIndex ? "active" : ""}
-            />
-          ))}
-        </ImageContainer>
-      </StyledImgContainer>
-
-      <NavigationButton className="left" onClick={() => changeSlide(-1)}>
-        <GoChevronLeft />
-      </NavigationButton>
-      <NavigationButton className="right" onClick={() => changeSlide(1)}>
-        <GoChevronRight />
-      </NavigationButton>
-      <Controls>
-        <PlayPauseButton onClick={handlePlayPause}>
-          {isPlaying ? <IoIosPause /> : <IoPlay />}
-        </PlayPauseButton>
-        <ProgressBarContainer>
-          {images.map((_, index) => (
-            <ProgressBar
-              key={index}
-              onClick={() => handleProgressBarClick(index)}
-            >
-              <div
-                className="progress"
-                style={{ width: `${progressBars[index]}%` }}
-              ></div>
-            </ProgressBar>
-          ))}
-        </ProgressBarContainer>
-      </Controls>
-    </CarouselWrapper>
+    <OuterContainer>
+      <InnerContainer>
+        <ImgOuterContainer>
+          <CarouselWrapper currentIndex={currentIndex}>
+            {/* <div>
+          <ImageContainer currentIndex={currentIndex}>
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Slide ${index + 1}`}
+                className={index === currentIndex ? "active" : ""}
+              />
+            ))}
+          </ImageContainer>
+        </div> */}
+            {/* <OuterContainer>
+        <InnerContainer>
+          <ImgOuterContainer>
+            <ImgInnerContainer>
+              <ImgContainer>
+                <span></span>
+                {images.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    className={index === currentIndex ? "active" : ""}
+                  />
+                ))}
+              </ImgContainer>
+            </ImgInnerContainer>
+          </ImgOuterContainer>
+        </InnerContainer>
+      </OuterContainer> */}
+            Home
+            <NavigationButton className="left" onClick={() => changeSlide(-1)}>
+              <GoChevronLeft />
+            </NavigationButton>
+            <NavigationButton className="right" onClick={() => changeSlide(1)}>
+              <GoChevronRight />
+            </NavigationButton>
+            <Controls>
+              <PlayPauseButton onClick={handlePlayPause}>
+                {isPlaying ? <IoIosPause /> : <IoPlay />}
+              </PlayPauseButton>
+              <ProgressBarContainer>
+                {images.map((_, index) => (
+                  <ProgressBar
+                    key={index}
+                    onClick={() => handleProgressBarClick(index)}
+                  >
+                    <div
+                      className="progress"
+                      style={{ width: `${progressBars[index]}%` }}
+                    ></div>
+                  </ProgressBar>
+                ))}
+              </ProgressBarContainer>
+            </Controls>
+          </CarouselWrapper>
+        </ImgOuterContainer>
+      </InnerContainer>
+    </OuterContainer>
   );
 };
 

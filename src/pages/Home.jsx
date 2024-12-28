@@ -4,20 +4,33 @@ import Header from "../ui/Header";
 import HeroSection from "../ui/HeroSection";
 
 const Main = styled.main`
-  min-width: 350px;
-  max-width: 150rem;
+  width: 100%;
+  max-width: 120rem;
   background-color: var(--color-grey-950);
-  padding: 2rem;
-  margin: auto;
+  margin: 0 auto;
+  margin-top: 5rem;
+  padding: 0 12rem;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(249, 146, 151, 0.2);
 `;
 
 function Home() {
   return (
-    <Main>
+    <>
       <Header />
-      <HeroSection />
-      <Faq />
-    </Main>
+      <Main>
+        <Container>
+          <HeroSection />
+          <Faq />
+        </Container>
+      </Main>
+    </>
   );
 }
 

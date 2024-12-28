@@ -67,7 +67,7 @@ const Faq = () => {
   };
 
   return (
-    <>
+    <div>
       <Heading as="h1">Frequently Asked Questions</Heading>
       <FaqContainer>
         {faqs.map((faq, index) => (
@@ -90,7 +90,7 @@ const Faq = () => {
           </QuestionWrapper>
         ))}
       </FaqContainer>
-    </>
+    </div>
   );
 };
 
