@@ -16,7 +16,7 @@ export default function LoginForm() {
     try {
       setError("");
       await login(values.email, values.password);
-      toast.success("Logged in scuessfully");
+      toast.success("Logged in successfully");
       navigate("/dashboard");
     } catch {
       setError("Failed to log in");

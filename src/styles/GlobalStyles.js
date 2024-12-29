@@ -212,6 +212,15 @@ img {
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
+@keyframes move-left-right {
+  0%{
+    transform: translateX(-4rem);
+  }
+  100%{
+    transform: translateX(4rem);
+  }
+}
+
 /*
 FOR DARK MODE
 

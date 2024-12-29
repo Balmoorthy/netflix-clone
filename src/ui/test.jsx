@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { IoIosPause } from "react-icons/io";
 import { IoPlay } from "react-icons/io5";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 const images = [
   "home-slider/home-slide-img-1.jpg",
@@ -12,18 +12,9 @@ const images = [
   "home-slider/home-slide-img-5.jpg",
 ];
 
-// Keyframe animation for smooth sliding
-const slideAnimation = (index) => keyframes`
-  0% {
-    transform: translateX(-${index * 100}%);
-  }
-  100% {
-    transform: translateX(-${((index + 1) % images.length) * 100}%);
-  }
-`;
-
 const OuterContainer = styled.div`
   width: calc(100vw - 6rem);
+  /* max-width: 120rem; */
   height: 772px;
   padding: 0 6rem;
 `;
@@ -65,6 +56,20 @@ const ImgInnerContainer = styled.div`
   inset: 2px;
   z-index: 2;
   position: absolute;
+  /* width: 100%; */
+
+  height: 100%;
+`;
+
+const ImgContainer = styled.div`
+  mask-image: linear-gradient(
+    180deg,
+    #fff 71.48%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+
+  /* display: flex;
+  justify-content: center; */
   height: 100%;
 
   & span {
@@ -79,21 +84,8 @@ const ImgInnerContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 1;
+    z-index: 2;
   }
-`;
-
-const ImgContainer = styled.div`
-  mask-image: linear-gradient(
-    180deg,
-    #fff 71.48%,
-    rgba(255, 255, 255, 0.4) 100%
-  );
-  height: 100%;
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px 20px 16px 16px;
 `;
 
 const CarouselWrapper = styled.div.withConfig({
@@ -106,26 +98,37 @@ const CarouselWrapper = styled.div.withConfig({
   margin-left: auto;
   margin-right: auto;
   border-radius: 20px 20px 16px 16px;
+  background: ${({ currentIndex }) =>
+    currentIndex === 0
+      ? "lightblue"
+      : currentIndex === 1
+      ? "lightgreen"
+      : "lightcoral"};
 `;
 
 const ImageContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "currentIndex",
 })`
   display: flex;
-  height: 100%;
+  /* transform: ${({ currentIndex }) =>
+    `translateX(-${currentIndex * 100}%)`}; */
   transition: transform 0.5s ease-in-out;
+  justify-content: center;
+  inset: 1;
+  z-index: 2;
+  height: 100%;
   border-radius: 20px 20px 16px 16px;
-  animation: ${({ currentIndex }) => slideAnimation(currentIndex)} 0.5s
-    ease-in-out;
   background: radial-gradient(at top left, white 25%, transparent 70%);
 
   & > img {
     position: absolute;
+
     flex-shrink: 0;
     height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: center;
+    /* width: calc(100vw + 6rem); */
   }
 `;
 
@@ -196,7 +199,6 @@ const NavigationButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
-  z-index: 5;
 
   & svg {
     width: 24px;
@@ -225,7 +227,7 @@ const Carousel = () => {
   const intervalRef = useRef(null);
   const progressRefs = useRef([]);
 
-  const DURATION = 1000; // 5 seconds for each slide
+  const DURATION = 5000; // 5 seconds for each slide
 
   const changeSlide = useCallback(
     (direction) => {
@@ -308,8 +310,8 @@ const Carousel = () => {
         <ImgOuterContainer>
           <ImgInnerContainer>
             <ImgContainer>
-              <CarouselWrapper key={currentIndex} currentIndex={currentIndex}>
-                <ImageContainer key={currentIndex} currentIndex={currentIndex}>
+              <CarouselWrapper currentIndex={currentIndex}>
+                <ImageContainer currentIndex={currentIndex}>
                   <span></span>
                   {images.map((image, index) =>
                     index === currentIndex ? (
