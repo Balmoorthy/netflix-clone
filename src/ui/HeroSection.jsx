@@ -3,7 +3,7 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { IoIosPause } from "react-icons/io";
 import { IoPlay } from "react-icons/io5";
 import styled, { keyframes } from "styled-components";
-
+import { slidesData } from "../data/slidesData";
 const images = [
   "home-slider/home-slide-img-1.jpg",
   "home-slider/home-slide-img-2.jpg",
@@ -12,13 +12,14 @@ const images = [
   "home-slider/home-slide-img-5.jpg",
 ];
 
-// Keyframe animation for smooth sliding
-const slideAnimation = (index) => keyframes`
+const slideAnimation = keyframes`
   0% {
-    transform: translateX(-${index * 100}%);
+    transform: translateX(4rem);
+    opacity: 0;
   }
   100% {
-    transform: translateX(-${((index + 1) % images.length) * 100}%);
+    transform: translateX(0);
+    opacity: 1;
   }
 `;
 
@@ -39,6 +40,7 @@ const ImgOuterContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  filter: drop-shadow(24px 32px 24px rgba(0, 0, 0, 0.6));
   mask-image: radial-gradient(
     103% 10.5% at 50% 102%,
     transparent 50%,
@@ -115,8 +117,6 @@ const ImageContainer = styled.div.withConfig({
   height: 100%;
   transition: transform 0.5s ease-in-out;
   border-radius: 20px 20px 16px 16px;
-  animation: ${({ currentIndex }) => slideAnimation(currentIndex)} 0.5s
-    ease-in-out;
   background: radial-gradient(at top left, white 25%, transparent 70%);
 
   & > img {
@@ -126,6 +126,7 @@ const ImageContainer = styled.div.withConfig({
     width: 100%;
     object-fit: cover;
     object-position: center;
+    animation: ${slideAnimation} 0.5s ease-in-out;
   }
 `;
 
@@ -216,7 +217,7 @@ const NavigationButton = styled.button`
   }
 `;
 
-const Carousel = () => {
+const Carousel = ({ onImageChange }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progressBars, setProgressBars] = useState(
@@ -225,7 +226,7 @@ const Carousel = () => {
   const intervalRef = useRef(null);
   const progressRefs = useRef([]);
 
-  const DURATION = 1000; // 5 seconds for each slide
+  const DURATION = 4000; // 5 seconds for each slide
 
   const changeSlide = useCallback(
     (direction) => {
@@ -292,6 +293,7 @@ const Carousel = () => {
       return updated;
     });
     setCurrentIndex(index);
+    onImageChange(index, slidesData[index].image);
     setIsPlaying(false);
 
     if (isPlaying) {
@@ -311,11 +313,11 @@ const Carousel = () => {
               <CarouselWrapper key={currentIndex} currentIndex={currentIndex}>
                 <ImageContainer key={currentIndex} currentIndex={currentIndex}>
                   <span></span>
-                  {images.map((image, index) =>
+                  {slidesData.map((data, index) =>
                     index === currentIndex ? (
                       <img
                         key={index}
-                        src={image}
+                        src={data.image}
                         alt={`Slide ${index + 1}`}
                         className={index === currentIndex ? "active" : ""}
                       />
