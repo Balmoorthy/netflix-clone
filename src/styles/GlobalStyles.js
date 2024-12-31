@@ -212,12 +212,14 @@ img {
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
-@keyframes move-left-right {
-  0%{
-    transform: translateX(-4rem);
-  }
-  100%{
+@keyframes sideAnimation {
+  0% {
     transform: translateX(4rem);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 

@@ -15,7 +15,7 @@ const images = [
 const slideAnimation = keyframes`
   0% {
     transform: translateX(4rem);
-    opacity: 0;
+    opacity: 0.5;
   }
   100% {
     transform: translateX(0);
@@ -170,6 +170,10 @@ const ProgressBar = styled.div`
   &:hover {
     height: 7px;
   }
+
+  &:active {
+    background-color: var(--color-grey-400);
+  }
 `;
 
 const PlayPauseButton = styled.button`
@@ -246,10 +250,11 @@ const Carousel = ({ onImageChange }) => {
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
           changeSlide(1);
+          onImageChange(currentIndex, slidesData[currentIndex].image);
         }, DURATION);
       }
     },
-    [currentIndex, isPlaying]
+    [currentIndex, isPlaying, onImageChange]
   );
 
   useEffect(() => {
