@@ -47,6 +47,7 @@ function CarouselWrapper({ currentIndex, changeSlide }) {
   return (
     <Wrapper>
       <ImageContainer>
+        {/* Filter dark */}
         <span></span>
         {slidesData.map((data, index) =>
           index === currentIndex ? (
@@ -59,6 +60,11 @@ function CarouselWrapper({ currentIndex, changeSlide }) {
           ) : null
         )}
       </ImageContainer>
+      <div>
+        {slidesData.map((data) => {
+          <span>{data.title}</span>;
+        })}
+      </div>
       <NavigationButton direction="left" onClick={() => changeSlide(-1)}>
         <GoChevronLeft />
       </NavigationButton>

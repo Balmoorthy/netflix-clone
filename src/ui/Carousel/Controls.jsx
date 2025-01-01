@@ -21,17 +21,18 @@ const ProgressBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 25%;
+  width: 20%;
   gap: 6px;
 `;
 
 const ProgressBar = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "currentIndex",
+  shouldForwardProp: (prop) => prop !== "isCurrent",
 })`
   flex: 1;
   height: 5px;
 
-  background: var(--color-grey-400);
+  background: ${({ isCurrent }) =>
+    isCurrent ? "var(--color-grey-400)" : "var(--color-grey-500)"};
   position: relative;
   cursor: pointer;
   border-radius: var(--border-radius-md);
@@ -42,11 +43,18 @@ const ProgressBar = styled.div.withConfig({
     background: var(--color-grey-200);
     transition: width 0.1s linear;
     border-radius: var(--border-radius-md);
+    transition: opacity 0.3s ease;
+    opacity: 1;
+
+    &paused {
+      opacity: 0;
+    }
   }
 
   &:hover {
     transform: scale(1.05);
-    background: var(--color-grey-300);
+    background: ${({ isCurrent }) =>
+      isCurrent ? "var(--color-grey-500)" : "var(--color-grey-300)"};
   }
 
   &:active {
@@ -70,6 +78,7 @@ function Controls({
   isPlaying,
   progressBars,
   handlePlayPause,
+  currentIndex,
   handleProgressBarClick,
 }) {
   return (
@@ -80,12 +89,12 @@ function Controls({
       <ProgressBarContainer>
         {slidesData.map((_, index) => (
           <ProgressBar
-            currentIndex={index}
+            isCurrent={index === currentIndex}
             key={index}
             onClick={() => handleProgressBarClick(index)}
           >
             <div
-              className="progress"
+              className={`progress ${isPlaying ? "" : "paused"}`}
               style={{ width: `${progressBars[index]}%` }}
             ></div>
           </ProgressBar>
@@ -101,5 +110,6 @@ Controls.propTypes = {
   isPlaying: PropTypes.bool,
   progressBars: PropTypes.node,
   handlePlayPause: PropTypes.func,
+  currentIndex: PropTypes.number,
   handleProgressBarClick: PropTypes.func,
 };

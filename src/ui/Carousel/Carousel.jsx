@@ -151,31 +151,47 @@ const Carousel = ({ onImageChange }) => {
     }, 100);
   };
 
-  const handlePlayPause = () => {
-    setIsPlaying((prev) => !prev);
-    setProgressBars((prev) => {
-      const updated = [...prev];
-      updated[currentIndex] = 0;
-      return updated;
-    });
-  };
-
   const handleProgressBarClick = (index) => {
     setProgressBars((prev) => {
       const updated = [...prev];
-      updated[currentIndex] = 0;
+      updated[currentIndex] = 0; // Reset the current bar's progress
       return updated;
     });
+
+    // Set the clicked progress bar as the new start point
     setCurrentIndex(index);
     onImageChange(index, slidesData[index].image);
-    setIsPlaying(false);
 
-    if (isPlaying) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(() => {
-        changeSlide(index - currentIndex);
-      }, DURATION);
-    }
+    // Pause playback and add "paused" class to the progress bar
+    progressRefs.current.forEach(clearInterval); // Stop all intervals
+    startProgress(index);
+
+    // Pause playback
+    setIsPlaying(false);
+  };
+
+  const handlePlayPause = () => {
+    setIsPlaying((prev) => {
+      if (!prev) {
+        // Reset all progress bars to opacity 0 when resuming playback
+        setProgressBars((prevBars) =>
+          prevBars.map((bar, index) => (index === currentIndex ? 0 : bar))
+        );
+
+        // Restart the interval
+        clearInterval(intervalRef.current);
+        intervalRef.current = setInterval(() => {
+          changeSlide(1);
+        }, DURATION);
+
+        startProgress(currentIndex); // Start progress for the current slide
+      } else {
+        // Pause and clear all progress
+        clearInterval(intervalRef.current);
+        progressRefs.current.forEach(clearInterval);
+      }
+      return !prev;
+    });
   };
 
   return (
@@ -192,6 +208,7 @@ const Carousel = ({ onImageChange }) => {
           </ImgInnerContainer>
         </ImgOuterContainer>
         <Controls
+          currentIndex={currentIndex}
           isPlaying={isPlaying}
           progressBars={progressBars}
           handlePlayPause={handlePlayPause}

@@ -95,7 +95,6 @@ function Home() {
       <Header />
       <Main>
         <Container>
-          {/* <HeroSection onImageChange={handleImageChange} /> */}
           <Carousel onImageChange={handleImageChange} />
           <Faq />
         </Container>

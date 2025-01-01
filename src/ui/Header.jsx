@@ -7,12 +7,10 @@ import SearchBar from "./Forms/SearchBar";
 import Logo from "./Logo";
 
 const StyledHeader = styled.header`
-  /* background-color: var(--color-grey-900); */
   width: calc(100vw - 6rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* width: 100%; */
   padding: 1.5rem 4rem;
   gap: 2rem;
   margin: 0 auto;
@@ -32,6 +30,7 @@ function Header() {
   function handleSubmit() {
     navigate("/signup");
   }
+
   return (
     <StyledHeader>
       <Logo />
