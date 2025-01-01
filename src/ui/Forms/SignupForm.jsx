@@ -1,10 +1,9 @@
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
-import useAuthForm from "../hooks/useAuthForm";
+import { useAuth } from "../../context/useAuth";
+import useAuthForm from "../../hooks/useAuthForm";
 
-export default function LoginForm() {
-  const { login } = useAuth();
+export default function SignupForm() {
+  const { signup } = useAuth();
   const navigate = useNavigate();
   const { values, handleChange, error, setError } = useAuthForm({
     email: "",
@@ -15,17 +14,16 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       setError("");
-      await login(values.email, values.password);
-      toast.success("Logged in successfully");
+      await signup(values.email, values.password);
       navigate("/dashboard");
     } catch {
-      setError("Failed to log in");
+      setError("Failed to sign up");
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+      <h2>Sign Up</h2>
       {error && <p>{error}</p>}
       <input
         type="email"
@@ -41,7 +39,7 @@ export default function LoginForm() {
         value={values.password}
         onChange={handleChange}
       />
-      <button type="submit">Log In</button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 }

@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGE_BASE_URL } from "../utils/constants";
-import Heading from "./Heading";
+import { IMAGE_BASE_URL } from "../../utils/constants";
+import Heading from "../Heading";
 
 const StyledMovieRow = styled.div`
   width: 100%;

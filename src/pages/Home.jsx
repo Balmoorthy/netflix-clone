@@ -1,19 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Carousel from "../ui/Carousel/Carousel";
 import Faq from "../ui/Faq";
 import Header from "../ui/Header";
-import HeroSection from "../ui/HeroSection";
 
 const Main = styled.main`
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-  margin-top: 5rem;
+  margin-top: 1rem;
   padding: 0 12rem;
 `;
 
 const OuterContainer = styled.div`
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--color-bg);
   position: relative;
   width: 100%;
 `;
@@ -33,21 +33,23 @@ const BgImgContainer = styled.div`
   top: 0;
   bottom: 0;
   overflow: hidden;
+  z-index: -1;
 `;
 
-const BackgroundImage = styled.div`
+const BackgroundImage = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "backgroundImage",
+})`
   background-image: ${(props) => `url(${props.backgroundImage})`};
   transition: background-image 0.2s ease-in-out;
   filter: blur(16px);
   position: absolute;
   width: 100%;
-  height: 112rem;
-  opacity: 0.16;
+  height: 160rem;
+  opacity: 0.4;
   mask-image: linear-gradient(
     rgb(217, 217, 217) 78.62%,
     rgba(115, 115, 115, 0) 100%
   );
-  z-index: 0;
 `;
 
 const ImgShadow = styled.div`
@@ -93,7 +95,8 @@ function Home() {
       <Header />
       <Main>
         <Container>
-          <HeroSection onImageChange={handleImageChange} />
+          {/* <HeroSection onImageChange={handleImageChange} /> */}
+          <Carousel onImageChange={handleImageChange} />
           <Faq />
         </Container>
       </Main>

@@ -12,9 +12,9 @@ import { getPopularMovies } from "./services/apiMovies";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./ui/Dashboard";
-import LoginForm from "./ui/LoginForm";
+import LoginForm from "./ui/Forms/LoginForm";
+import SignupForm from "./ui/Forms/SignupForm";
 import PrivateRoute from "./ui/PrivateRoute";
-import SignupForm from "./ui/SignupForm";
 
 function App() {
   getPopularMovies();

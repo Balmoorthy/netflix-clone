@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
-import { useKey } from "../hooks/useKey";
-import useMovies from "../hooks/useMovies";
-import { IMAGE_BASE_URL } from "../utils/constants";
+import { useKey } from "../../hooks/useKey";
+import useMovies from "../../hooks/useMovies";
+import { IMAGE_BASE_URL } from "../../utils/constants";
 
 const StyledInput = styled.input`
   width: 30rem;

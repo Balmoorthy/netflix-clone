@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import LoginForm from "./Forms/LoginForm";
 import Header from "./Header";
-import LoginForm from "./LoginForm";
 
 const StyledAppLayout = styled.div`
   height: 100vh;

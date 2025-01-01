@@ -4,13 +4,6 @@ import { IoIosPause } from "react-icons/io";
 import { IoPlay } from "react-icons/io5";
 import styled, { keyframes } from "styled-components";
 import { slidesData } from "../data/slidesData";
-const images = [
-  "home-slider/home-slide-img-1.jpg",
-  "home-slider/home-slide-img-2.jpg",
-  "home-slider/home-slide-img-3.jpg",
-  "home-slider/home-slide-img-4.jpg",
-  "home-slider/home-slide-img-5.jpg",
-];
 
 const slideAnimation = keyframes`
   0% {
@@ -98,9 +91,7 @@ const ImgContainer = styled.div`
   border-radius: 20px 20px 16px 16px;
 `;
 
-const CarouselWrapper = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "currentIndex",
-})`
+const CarouselWrapper = styled.div`
   background: rgba(249, 146, 151, 0.2);
   width: 100%;
   height: 100%;
@@ -110,9 +101,7 @@ const CarouselWrapper = styled.div.withConfig({
   border-radius: 20px 20px 16px 16px;
 `;
 
-const ImageContainer = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "currentIndex",
-})`
+const ImageContainer = styled.div`
   display: flex;
   height: 100%;
   transition: transform 0.5s ease-in-out;
@@ -147,18 +136,21 @@ const ProgressBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 40%;
-  gap: 5px;
+  width: 25%;
+  gap: 6px;
 `;
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "currentIndex",
+})`
   flex: 1;
   height: 5px;
+
   background: var(--color-grey-400);
   position: relative;
   cursor: pointer;
   border-radius: var(--border-radius-md);
-  transition: height 0.5s linear;
+  transition: height, background, transform 0.5s linear;
 
   .progress {
     height: 100%;
@@ -168,7 +160,8 @@ const ProgressBar = styled.div`
   }
 
   &:hover {
-    height: 7px;
+    transform: scale(1.05);
+    background: var(--color-grey-300);
   }
 
   &:active {
@@ -243,6 +236,8 @@ const Carousel = ({ onImageChange }) => {
       setCurrentIndex((prevIndex) => {
         const nextIndex =
           (prevIndex + direction + images.length) % images.length;
+        onImageChange(nextIndex, slidesData[nextIndex].image);
+
         return nextIndex;
       });
 
@@ -250,7 +245,6 @@ const Carousel = ({ onImageChange }) => {
         clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
           changeSlide(1);
-          onImageChange(currentIndex, slidesData[currentIndex].image);
         }, DURATION);
       }
     },
@@ -352,6 +346,7 @@ const Carousel = ({ onImageChange }) => {
           <ProgressBarContainer>
             {images.map((_, index) => (
               <ProgressBar
+                currentIndex={index}
                 key={index}
                 onClick={() => handleProgressBarClick(index)}
               >

@@ -48,6 +48,7 @@ const GlobalStyles = createGlobalStyle`
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
 
+  --color-bg: rgba(255, 255, 255, 0.8);
 
   --backdrop-color: rgba(255, 255, 255, 0.1);
 
@@ -93,6 +94,9 @@ const GlobalStyles = createGlobalStyle`
   --color-indigo-100: #3730a3;
   --color-indigo-700: #e0e7ff;
 
+  
+  --color-bg: rgba(0, 0, 0, 0.8);
+
 
   --backdrop-color: rgba(0, 0, 0, 0.3);
 
@@ -111,15 +115,6 @@ const GlobalStyles = createGlobalStyle`
   --border-radius-md: 7px;
   --border-radius-lg: 9px;
 
-   /* Indigo */
-   --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
 
 }
 
@@ -141,7 +136,7 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   color: var(--color-grey-50);
-  /* background-color: var(--color-grey-950); */
+  /* background-color: var(--color-grey-950);  */
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   line-height: 1.5;
