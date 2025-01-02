@@ -30,13 +30,12 @@ const ProgressBar = styled.div.withConfig({
 })`
   flex: 1;
   height: 5px;
-
   background: ${({ isCurrent }) =>
     isCurrent ? "var(--color-grey-400)" : "var(--color-grey-500)"};
   position: relative;
   cursor: pointer;
   border-radius: var(--border-radius-md);
-  transition: background, transform 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   .progress {
     height: 100%;
